@@ -1,7 +1,11 @@
+var path = require('path');
 var stylus = require('stylus');
-var fs = require('fs');
 
-var stFunctions = fs.readFileSync('./node_modules/stylus/lib/functions/index.styl', 'utf-8');
+stylus.nodes.filename = path.resolve(__dirname, '../stylus/lib/functions/index.styl');
+
+var options = {
+	root: new stylus.nodes.Block
+};
 
 var options = {};
 
@@ -41,7 +45,6 @@ var removeRoundBrackets = function(string) {
 };
 
 var expressionsToObject = function(content) {
-	content = stFunctions + content;
 	var obj = {};
 
 	var astC = new stylus.Parser(content, options).parse();
